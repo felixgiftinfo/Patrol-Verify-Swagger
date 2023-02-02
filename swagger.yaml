@@ -1819,6 +1819,15 @@ components:
         siteId:
           type: integer
           format: int
+          
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+        tolerance:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Tolerance(In Seconds)
         position:
           type: integer
           format: int
@@ -1858,14 +1867,17 @@ components:
       type: object   
       properties:
       
-        isNew:
-          type: boolean
-        isUpdated:
-          type: boolean
-        isRemoved:
-          type: boolean
         checkpointId:
           $ref: '#/components/schemas/Guid'
+        
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+        tolerance:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Tolerance(In Seconds)
         siteId:
           type: integer
           format: int
@@ -1881,10 +1893,6 @@ components:
       title: Route Synchronisation Entry
       type: object 
       properties:
-        isNew:
-          type: boolean
-        isUpdated:
-          type: boolean
         id:
           allOf:
             - $ref: '#/components/schemas/Guid'
@@ -1901,6 +1909,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Time'
           title: Tolerance(In Seconds)
+        
+        isRouteTimeFrame:
+          type: boolean
         status:
           $ref: '#/components/schemas/RouteStatus'
         description:
@@ -1951,6 +1962,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/Time'
           title: Tolerance(In Seconds)
+        isRouteTimeFrame:
+          type: boolean
         status:
           allOf:
             - $ref: '#/components/schemas/RouteStatus'
