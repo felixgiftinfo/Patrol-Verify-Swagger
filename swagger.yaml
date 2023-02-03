@@ -2255,7 +2255,7 @@ components:
             - title: Last modify date of entry.
             
     PatrolSynchronisationEntryData:
-      title: Route Synchronisation Entry
+      title: Patrol Synchronisation Entry
       type: object 
       properties:
         isUpdated:
@@ -2472,6 +2472,20 @@ components:
           readOnly: true
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+          readOnly: true
+        tolerance:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Tolerance(In Seconds)
+          readOnly: true
+        
+        isRouteTimeFrame:
+          type: boolean
+          readOnly: true
         orgId:
           type: integer
           readOnly: true
@@ -2603,6 +2617,7 @@ components:
             - $ref: '#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        
         riskAssessmentId:
           type: string
           title: Risk Assessment Id 
@@ -2742,10 +2757,8 @@ components:
         assignedTo:
           type: string
           title: Assigned user
-        tolerance:
-          type: integer
-          format: int64
-          example: 100000
+        isRouteTimeFrame:
+          type: boolean
         additionalInfo:
           type: string
 
@@ -2808,6 +2821,15 @@ components:
             IsCompleted:
               type: boolean
               readOnly: true 
+            timeFrame:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+              title: Time Frame(In Seconds)
+            tolerance:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+              title: Tolerance(In Seconds)
+              
             createdByName:
               type: string
               readOnly: true
