@@ -2283,6 +2283,10 @@ components:
           title: Route Id
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        isRouteTimeFrame:
+          type: boolean
+        isRandomPatrol:
+          type: boolean
         riskAssessmentId:
             type: string
             title: Risk Assessment Id 
@@ -2482,8 +2486,11 @@ components:
             - $ref: '#/components/schemas/Time'
           title: Tolerance(In Seconds)
           readOnly: true
-        
+       
         isRouteTimeFrame:
+          type: boolean
+          readOnly: true
+        isRandomPatrol:
           type: boolean
           readOnly: true
         orgId:
@@ -2758,6 +2765,8 @@ components:
           type: string
           title: Assigned user
         isRouteTimeFrame:
+          type: boolean
+        isRandomPatrol:
           type: boolean
         additionalInfo:
           type: string
