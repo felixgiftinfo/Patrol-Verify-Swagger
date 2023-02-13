@@ -749,6 +749,50 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'
+     
+          
+  /patrols/suspend/{scheduleEventId}/patrol/{patrolId}:
+    put:
+      tags:
+        - Patrol Service
+      summary: Suspend patrol event
+      description: Suspend patrol event
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      - $ref: '#/components/parameters/PatrolId'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
+     
+          
+  /patrols/restart/{scheduleEventId}/patrol/{patrolId}:
+    put:
+      tags:
+        - Patrol Service
+      summary: Restart patrol event
+      description: Restart patrol event
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      - $ref: '#/components/parameters/PatrolId'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'        
           
   /patrols/abandon/{scheduleEventId}/patrol/{patrolId}:
     put:
@@ -1119,6 +1163,28 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse' 
+          
+  /scheduling/event/{scheduleEventId}:
+    post:
+      tags:
+        - Scheduling Service
+      summary: Update Google Events  
+      description: Update Google Events   
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleServiceUpdateEventRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/SchedulingServiceEventBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
 
   /scheduling/list:
     post:
@@ -2014,6 +2080,7 @@ components:
           $ref: '#/components/schemas/PatrolEntryStruct'
         data:
           $ref: '#/components/schemas/BooleanStatus'
+          
     PatrolList:
       title: Set of Patrol Definition
       type: object
@@ -2074,15 +2141,6 @@ components:
           items:
             $ref: '#/components/schemas/PatrolCheckInData' 
          
-    ScheduleEventList:
-      title: Set of Checkin Definition
-      type: object
-      properties:
-        struct:
-          $ref: '#/components/schemas/ScheduleServiceEventStruct'
-        data:
-          items:
-            $ref: '#/components/schemas/ScheduleEventGetData'
     
     PatrolCheckpointDatailDataList:
       title: Set of Checkpoint Detail
@@ -2093,14 +2151,18 @@ components:
         data:
           items:
             $ref: '#/components/schemas/PatrolCheckpointDatailData'
-
-    ScheduleServiceEventCreate:
-      title: Event Create Response Of Scheduling Service
+            
+            
+    ScheduleEventList:
+      title: Set of Checkin Definition
       type: object
       properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
         data:
-          $ref: '#/components/schemas/ScheduleServiceEventCreateResponseData'
-
+          items:
+            $ref: '#/components/schemas/ScheduleEventGetData'
+            
     ScheduleEvent:
       title: Set of Checkin Definition
       type: object
@@ -2109,17 +2171,6 @@ components:
           $ref: '#/components/schemas/PatrolEntryStruct'
         data:
           $ref: '#/components/schemas/ScheduleEventGetData'
-
-    ScheduleEventListResponse:
-      title: Set of Events
-      type: object
-      properties:
-        struct:
-          $ref: '#/components/schemas/ScheduleServiceEventStruct'
-        data:
-         type: array
-         items:
-          $ref: '#/components/schemas/ScheduleServiceEventListData'
 
                     
     PatrolEntryStruct:
@@ -2133,16 +2184,6 @@ components:
           pattern: '^V\d$'
       example: '{"c":"Patrol","v":"V1"}'
 
-    ScheduleServiceEventStruct:
-      title: Struct definition for ScheduleServiceEvent
-      type: object
-      properties:
-        c:
-          type: string
-        v:
-          type: string
-          pattern: '^V\d$'
-      example: '{"c":"Event","v":"V1"}' 
     
     CheckInTaskData:
       title: Checkin Task Entry
@@ -2195,6 +2236,8 @@ components:
           type: object 
           properties:
             numberOfPatrolEventsStarted:
+              type: integer
+            numberOfPatrolEventsSuspended:
               type: integer
             numberOfPatrolEventsDeclined:
               type: integer
@@ -2316,137 +2359,10 @@ components:
         checkpoints:
           items:
               $ref: '#/components/schemas/PatrolEventCheckpointSynchronisationEntryData'
-              
-    ScheduleServiceEventListData:
-      type: object
-      required:
-        - summary
-        - startDateAndTime
-        - endDateAndTime
-        - recurrence
-        - timeZone
-      properties:
-      
-        summary:
-          type: string      
-
-        startDateAndTime:
-          type: string  
-
-        endDateAndTime:
-          type: string   
-
-        recurrence:
-           type: string 
-
-        timeZone:
-            type: string
-
-        calendarId:
-            type: string
-
-    ScheduleServiceEventData:
-      type: object
-      required:
-        - summary
-        - startDateAndTime
-        - endDateAndTime
-        - recurrence
-        - interval
-        - count
-        - days
-        - timeZone
-      properties:
-      
-        summary:
-          type: string   
-
-        days:
-          type: array
-          items:
-
-            type: string
-            enum: ["SU", "MO","TU","WE","TH","FR","SA"]     
-
-        startDateAndTime:
-          description: StartDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
-          type: string  
-
-        count:
-          type: number  
-
-        interval:
-          description: Works together with FREQ to specify how often the event should be repeated. For example, FREQ=DAILY;INTERVAL=2 means once every two days.
-
-
-          type: number    
-
-        endDateAndTime:
-          description: EndDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
-          type: string   
-
-        recurrence:
-           type: string 
-
-        timeZone:
-            type: string
-
-        calendarId:
-            type: string     
-
-
-    ScheduleServiceListPayloadData:
-      type: object
-      required:
-        - maxResults
         
-      properties:
-      
-        maxResults:
-          type: number      
-
-        startDate:
-          type: string  
-
-        endDate:
-          type: string   
-
-        query:
-           type: string 
-
-        eventId:
-            type: string
-
-        calendarId:
-            type: string     
-
-
-    ScheduleServiceListCountPayloadData:
-      type: object
-      required:
-        - maxResults
         
-      properties:
-      
-        eventId:
-            type: string
-
-        calendarId:
-            type: string                   
-                   
-         
-    ScheduleServiceEventCreateResponseData:
-        allOf:
-        - type: object
-          properties:
-            eventId:
-              type: string
-              title: Event Id   Of the event Created
-            IcalUId:
-              type: string
-              title: IcalUId Unique  Id   Of the event Created  
-                        
-                
+        
+            
     
     ScheduleEventGetData:
       title: Patrol Schedule Event
@@ -2471,8 +2387,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PatrolResourceDocData'
-        statusExecutionTime:
-          type: integer
+        statusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
           readOnly: true
         status:
           $ref: '#/components/schemas/PatrolStatus'
@@ -2485,6 +2402,12 @@ components:
           allOf:
             - $ref: '#/components/schemas/Time'
           title: Tolerance(In Seconds)
+          readOnly: true
+        totalCheckpointCount:
+          type: integer
+          readOnly: true
+        processedCheckpointCount:
+          type: integer
           readOnly: true
        
         isRouteTimeFrame:
@@ -2862,7 +2785,159 @@ components:
                 - $ref: '#/components/schemas/Guid'
                 - title: User Id that last modified the entry. Default to current use if not supplied
               readOnly: true
-   
+              
+              
+              
+              
+              
+
+    # Scheduling Service data
+    
+    
+    ScheduleServiceEventStruct:
+      title: Struct definition for ScheduleServiceEvent
+      type: object
+      properties:
+        c:
+          type: string
+        v:
+          type: string
+          pattern: '^V\d$'
+      example: '{"c":"SchedulingEvent","v":"V1"}' 
+      
+    SchedulingServiceEventBoolean:
+      title: Patrol Boolean Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/ScheduleServiceEventStruct'
+        data:
+          $ref: '#/components/schemas/BooleanStatus'
+          
+    ScheduleEventListResponse:
+      title: Set of Events
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/ScheduleServiceEventStruct'
+        data:
+         type: array
+         items:
+          $ref: '#/components/schemas/ScheduleServiceEventBaseData'
+          
+          
+    ScheduleServiceEventCreateResponseData:
+      title: Set of Events
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/ScheduleServiceEventStruct'
+        data:
+          type: object
+          properties:
+            eventId:
+              type: string
+              title: Event Id   Of the event Created
+            IcalUId:
+              type: string
+              title: IcalUId Unique  Id   Of the event Created 
+      
+    ScheduleServiceEventCreate:
+      title: Event Create Response Of Scheduling Service
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ScheduleServiceEventCreateResponseData'
+
+    ScheduleServiceEventBaseData:
+      type: object
+      required:
+        - summary
+        - startDateAndTime
+        - endDateAndTime
+        - recurrence
+        - timeZone
+      properties:
+        summary:
+          type: string  
+        startDateAndTime:
+          description: StartDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string  
+        endDateAndTime:
+          description: EndDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string 
+        recurrence:
+           type: string
+        timeZone:
+            type: string
+
+
+    ScheduleServiceEventData:
+      type: object
+      required:
+        - summary
+        - startDateAndTime
+        - endDateAndTime
+        - recurrence
+        - interval
+        - count
+        - days
+        - timeZone
+      properties:
+      
+        summary:
+          type: string  
+        days:
+          type: array
+          items:
+            type: string
+            enum: ["SU", "MO","TU","WE","TH","FR","SA"] 
+        startDateAndTime:
+          description: StartDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string  
+        count:
+          type: number 
+        interval:
+          description: Works together with FREQ to specify how often the event should be repeated. For example, FREQ=DAILY;INTERVAL=2 means once every two days.
+          type: number   
+        endDateAndTime:
+          description: EndDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string   
+        recurrence:
+           type: string 
+        timeZone:
+            type: string
+    
+
+
+    ScheduleServiceListPayloadData:
+      type: object
+      required:
+        - maxResults
+      properties:
+        maxResults:
+          type: number 
+        startDate:
+          type: string
+        endDate:
+          type: string 
+        query:
+           type: string
+        eventId:
+            type: string    
+
+
+    ScheduleServiceListCountPayloadData:
+      type: object
+      required:
+        - maxResults
+      properties:
+        eventId:
+            type: string
+                  
+                   
+     
+     
   responses:
     CheckpointGuidResponse:
       description: Return checkpoint id
@@ -2899,7 +2974,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PatrolBoolean' 
+            $ref: '#/components/schemas/PatrolBoolean'
+    SchedulingServiceEventBooleanResponse:
+      description: Return boolean
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SchedulingServiceEventBoolean' 
+            
     ErrorResponse:
       description: The specified resource was not found
       content:
@@ -3086,7 +3168,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ScheduleServiceEventData'         
+            $ref: '#/components/schemas/ScheduleServiceEventData' 
+            
+    ScheduleServiceUpdateEventRequest:
+      description: Schedule Service Update Event
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScheduleServiceEventBaseData'          
 
     ScheduleServiceEventListRequest:
       description: Schedule Service  Event  List Payload
