@@ -2811,7 +2811,7 @@ components:
         scheduleEventId:
           type: string
           title: Event Id   Of the event Created
-        assignTo:
+        assignedTo:
           type: string
           title: Assign User         
               
