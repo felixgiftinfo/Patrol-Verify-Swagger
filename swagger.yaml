@@ -845,7 +845,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
           
    
-  /patrols/{patrolId}:
+  /patrols/re-assign-events/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
     put:
@@ -866,6 +866,10 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'
+          
+  /patrols/{patrolId}:
+    parameters:
+      - $ref: '#/components/parameters/PatrolId'
     patch:
       tags:
         - Patrol Service
