@@ -1487,6 +1487,10 @@ components:
         - STARTED
         - ABANDONED
         - COMPLETED
+        - DECLINE
+        - ENDED
+        - SUSPENDED
+        - RESTARTED
         
     Error:
       title: Error Response
@@ -2813,9 +2817,11 @@ components:
           title: Event Id   Of the event Created
         assignedTo:
           type: string
-          title: Assign User         
+          title: Assign User   
+        status:
+          $ref: '#/components/schemas/PatrolStatus'      
         descripion:
-          type: string               
+          type: string        
               
               
               
