@@ -848,6 +848,24 @@ paths:
   /patrols/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
+    put:
+      tags:
+        - Patrol Service
+      summary: Re-assign patrol event to another user
+      description: Re-assign patrol event to another user
+      requestBody:
+        $ref: '#/components/requestBodies/ReassignPatrolEventRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
     patch:
       tags:
         - Patrol Service
@@ -2785,7 +2803,17 @@ components:
                 - $ref: '#/components/schemas/Guid'
                 - title: User Id that last modified the entry. Default to current use if not supplied
               readOnly: true
-              
+      
+    ReassignPatrolEventData:
+      title: Re-Assign Patrol Events
+      type: object
+      properties:
+        scheduleEventId:
+          type: string
+          title: Event Id   Of the event Created
+        assignTo:
+          type: string
+          title: Assign User         
               
               
               
@@ -3142,6 +3170,9 @@ components:
           schema:
             $ref: '#/components/schemas/ScheduleServiceEventCreate'        
             
+            
+            
+            
   requestBodies:
     CheckpointRequest:
       description: Checkpoint entry request
@@ -3234,6 +3265,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PatrolPostEntryData'
+            
+    ReassignPatrolEventRequest:
+      description: Reassign Patrol Event Entry Request
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReassignPatrolEventData'
             
     RiskLicenseAcceptanceRequest:
       description: Patrol risk acceptance entry request
