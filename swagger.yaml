@@ -1479,8 +1479,7 @@ components:
         - DISABLED 
     PatrolStatus:
       type: string
-      description: Patrol Status
-      readOnly: true
+      description: Patrol Event Status
       example: 'READY'
       enum:
         - READY
@@ -2364,14 +2363,6 @@ components:
             $ref: '#/components/schemas/PatrolResourceDocData'
         description:
           type: string
-        statusStartDate:
-          allOf:
-            - $ref: '#/components/schemas/DateTime'
-            - title: Status Start Date.
-        statusExecutionDate:
-          allOf:
-            - $ref: '#/components/schemas/DateTime'
-            - title: Status Execution Date for (declined, abandoned and completed status).
         modifiedDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -2807,7 +2798,8 @@ components:
                 - $ref: '#/components/schemas/Guid'
                 - title: User Id that last modified the entry. Default to current use if not supplied
               readOnly: true
-      
+              
+              
     ReassignPatrolEventData:
       title: Re-Assign Patrol Events
       type: object
@@ -2817,9 +2809,9 @@ components:
           title: Event Id   Of the event Created
         assignedTo:
           type: string
-          title: Assign User   
+          title: Assign User 
         status:
-          $ref: '#/components/schemas/PatrolStatus'      
+          $ref: '#/components/schemas/PatrolStatus'
         descripion:
           type: string        
               
