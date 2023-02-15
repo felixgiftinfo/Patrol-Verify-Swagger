@@ -1186,16 +1186,14 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse' 
           
-  /scheduling/event/{scheduleEventId}:
-    post:
+  /scheduling/events:
+    patch:
       tags:
         - Scheduling Service
       summary: Update Google Events  
-      description: Update Google Events   
-      parameters:
-      - $ref: '#/components/parameters/ScheduleEventId'
+      description: Update Google Events 
       requestBody:
-        $ref: '#/components/requestBodies/ScheduleServiceUpdateEventRequest'
+        $ref: '#/components/requestBodies/ScheduleServicePatchEventRequest'
       responses:
         200:
           $ref: '#/components/responses/SchedulingServiceEventBooleanResponse'
@@ -2902,6 +2900,34 @@ components:
            type: string
         timeZone:
             type: string
+            
+  
+    ScheduleServicePatchEventData:
+      type: object
+      required:
+        - recurringEventId
+        - feedBackMessage
+      properties:
+        recurringEventId:
+          type: string 
+          description: This is the scheduleEventId
+        feedBackMessage:
+          type: string 
+          description: This is return when error is encounter
+        summary:
+          type: string  
+        location:
+          type: string  
+        startDateAndTime:
+          description: StartDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string  
+        endDateAndTime:
+          description: EndDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
+          type: string 
+        recurrence:
+           type: string
+        timeZone:
+            type: string
 
 
     ScheduleServiceEventData:
@@ -3205,12 +3231,12 @@ components:
           schema:
             $ref: '#/components/schemas/ScheduleServiceEventData' 
             
-    ScheduleServiceUpdateEventRequest:
-      description: Schedule Service Update Event
+    ScheduleServicePatchEventRequest:
+      description: Schedule Service Update/Patch Event
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ScheduleServiceEventBaseData'          
+            $ref: '#/components/schemas/ScheduleServicePatchEventData'          
 
     ScheduleServiceEventListRequest:
       description: Schedule Service  Event  List Payload
