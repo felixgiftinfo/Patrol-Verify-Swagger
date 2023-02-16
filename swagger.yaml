@@ -2814,7 +2814,7 @@ components:
           title: Assign User 
         status:
           $ref: '#/components/schemas/PatrolStatus'
-        descripion:
+        description:
           type: string        
               
               
