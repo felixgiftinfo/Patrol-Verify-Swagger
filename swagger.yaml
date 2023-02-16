@@ -2924,8 +2924,6 @@ components:
         endDateAndTime:
           description: EndDateTime Should Be RFC3339 Compatible ex - 2006-01-02T15:04:05-07:00,-07:00 is the timezone offset
           type: string 
-        recurrence:
-           type: string
         timeZone:
             type: string
 
@@ -3236,7 +3234,9 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ScheduleServicePatchEventData'          
+            type: array
+            items:
+              $ref: '#/components/schemas/ScheduleServicePatchEventData'          
 
     ScheduleServiceEventListRequest:
       description: Schedule Service  Event  List Payload
