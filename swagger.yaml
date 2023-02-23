@@ -729,6 +729,58 @@ paths:
           $ref: '#/components/responses/ErrorResponse'       
                   
           
+  /patrols/disable/{scheduleEventId}/patrol/{patrolId}:
+    put:
+      tags:
+        - Patrol Service
+      summary: Disable patrol event
+      description: Disable patrol event
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      - $ref: '#/components/parameters/PatrolId'
+      requestBody:
+        content:
+          application/json:
+           schema:
+            properties:
+              description:
+                type: string
+                format: string
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'       
+                  
+      
+          
+  /patrols/activate/{scheduleEventId}/patrol/{patrolId}:
+    put:
+      tags:
+        - Patrol Service
+      summary: Active disabled patrol event
+      description: Active disabled patrol event
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      - $ref: '#/components/parameters/PatrolId'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
+         
   /patrols/start/{scheduleEventId}/patrol/{patrolId}:
     put:
       tags:
@@ -777,8 +829,8 @@ paths:
     put:
       tags:
         - Patrol Service
-      summary: Restart patrol event
-      description: Restart patrol event
+      summary: Restart suspended patrol event
+      description: Restart suspended patrol event
       parameters:
       - $ref: '#/components/parameters/ScheduleEventId'
       - $ref: '#/components/parameters/PatrolId'
@@ -2814,7 +2866,7 @@ components:
           title: Assign User 
         status:
           $ref: '#/components/schemas/PatrolStatus'
-        description:
+        descripion:
           type: string        
               
               
