@@ -730,8 +730,10 @@ paths:
     put:
       tags:
         - Patrol Service
-      summary: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
-      description: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
+      summary: Carry out action on patrol event like STARTED
+      ABANDONED, COMPLETED, DECLINED, ENDED, SUSPENDED, RESTARTED, DISABLED and ACTIVATED .
+      description: Carry out action on patrol event like STARTED
+      ABANDONED, COMPLETED, DECLINED, ENDED, SUSPENDED, RESTARTED, DISABLED and ACTIVATED .
       requestBody:
         $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
      
