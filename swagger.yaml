@@ -731,9 +731,11 @@ paths:
       tags:
         - Patrol Service
       summary: Carry out action on patrol event like STARTED
-      ABANDONED, COMPLETED, DECLINED, ENDED, SUSPENDED, RESTARTED, DISABLED and ACTIVATED .
+                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
+                DISABLED and ACTIVATED .
       description: Carry out action on patrol event like STARTED
-      ABANDONED, COMPLETED, DECLINED, ENDED, SUSPENDED, RESTARTED, DISABLED and ACTIVATED .
+                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
+                DISABLED and ACTIVATED .
       requestBody:
         $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
      
@@ -1383,7 +1385,6 @@ components:
         - ABANDONED
         - COMPLETED
         - DECLINE
-        - ENDED
         - SUSPENDED
         - RESTARTED
         - DISABLED
