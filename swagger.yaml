@@ -698,236 +698,8 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'  
           
-          
-  /patrols/{statusAction}/{scheduleEventId}/patrol/{patrolId}:
-    put:
-      tags:
-        - Patrol Service
-      summary: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
-      description: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
-      parameters:
-      - $ref: '#/components/parameters/statusAction'
-      - $ref: '#/components/parameters/ScheduleEventId'
-      - $ref: '#/components/parameters/PatrolId'
-      requestBody:
-        content:
-          application/json:
-           schema:
-            properties:
-              description:
-                type: string
-                format: string
-      responses:
-        200:
-          $ref: '#/components/responses/PatrolBooleanResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'       
+              
                   
-          
-  # /patrols/decline/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Decline patrol event
-  #     description: Decline patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #         schema:
-  #           properties:
-  #             description:
-  #               type: string
-  #               format: string
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'       
-                  
-          
-  # /patrols/disable/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Disable patrol event
-  #     description: Disable patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #         schema:
-  #           properties:
-  #             description:
-  #               type: string
-  #               format: string
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'       
-                  
-      
-          
-  # /patrols/activate/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Active disabled patrol event
-  #     description: Active disabled patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'
-         
-  # /patrols/start/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Start patrol event
-  #     description: Start patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'
-     
-          
-  # /patrols/suspend/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Suspend patrol event
-  #     description: Suspend patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'
-     
-          
-  # /patrols/restart/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Restart suspended patrol event
-  #     description: Restart suspended patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'        
-          
-  # /patrols/abandon/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Abandon patrol event
-  #     description: Abandon patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #         schema:
-  #           properties:
-  #             description:
-  #               type: string
-  #               format: string
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'
-  
-  # /patrols/complete/{scheduleEventId}/patrol/{patrolId}:
-  #   put:
-  #     tags:
-  #       - Patrol Service
-  #     summary: Complete patrol event
-  #     description: Complete patrol event
-  #     parameters:
-  #     - $ref: '#/components/parameters/ScheduleEventId'
-  #     - $ref: '#/components/parameters/PatrolId'
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/PatrolBooleanResponse'
-  #       400:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       401:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       403:
-  #         $ref: '#/components/responses/ErrorResponse'
-  #       500:
-  #         $ref: '#/components/responses/ErrorResponse'
-          
-   
   /patrols/re-assign-events/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
@@ -953,6 +725,28 @@ paths:
   /patrols/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
+      
+    
+    put:
+      tags:
+        - Patrol Service
+      summary: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
+      description: Carry out action like activate, start, restart, suspend, abandon, decline and complete a patrol event.
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
+     
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'  
+          
     patch:
       tags:
         - Patrol Service
@@ -1398,13 +1192,6 @@ components:
       schema:
         $ref: '#/components/schemas/RouteStatus'
        
-    statusAction:
-      name: statusAction
-      in: path
-      description: Status Action
-      required: true
-      schema:
-        $ref: '#/components/schemas/PatrolStatusAction'
     RouteId:
       name: routeId
       in: path
@@ -1588,16 +1375,17 @@ components:
     PatrolStatusAction:
       type: string
       description: Patrol Event Status Action
-      example: 'start'
+      example: 'STARTED'
       enum:
-        - start
-        - abandon
-        - complete
-        - decline
-        - suspend
-        - restart
-        - disable
-        - activate
+        - STARTED
+        - ABANDONED
+        - COMPLETED
+        - DECLINE
+        - ENDED
+        - SUSPENDED
+        - RESTARTED
+        - DISABLED
+        - ACTIVATED
         
     Error:
       title: Error Response
@@ -3427,6 +3215,20 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Guid'
+                  
+    UpdatePatrolEventRequest:
+      content:
+        application/json:
+          schema:
+            properties:  
+              scheduleEventId:
+                type: string
+                title: Event Id Of the event Created
+              status:
+                $ref: '#/components/schemas/PatrolStatusAction'
+              statusReason:
+                type: string        
+              
             
     PatrolPutRequest:
       description: Patrol entry request
