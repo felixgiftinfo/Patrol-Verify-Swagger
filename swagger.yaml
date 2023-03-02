@@ -69,16 +69,23 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'
   
-  /patrols/has-started:
+  /routes/validate-checkpoints:
     put:
       tags:
         - API Communication
       requestBody:
-        $ref: '#/components/requestBodies/HasPatrolStartedRequest'
-      summary: Check if patrol has started
+        content:
+          application/json:
+            schema:
+              properties:  
+                checkpointIds:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Guid'
+      summary: Check if patrol route has started
       responses:
         200:
-          $ref: '#/components/responses/PatrolBooleanResponse'
+          $ref: '#/components/responses/ValidateCheckpointResponse'
         400:
           $ref: '#/components/responses/ErrorResponse'
         401:
@@ -1737,6 +1744,20 @@ components:
         data:
           $ref: '#/components/schemas/RouteEntryData'
           
+    ValidateCheckpoint:
+      title: Route Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/RouteEntryStruct'
+        data:
+          items:
+            properties:
+              checkpointId:
+                $ref: '#/components/schemas/Guid'
+              isRouteActive:
+                type: boolean
+          
     RouteCheckpoint:
       title: Route Checkpoints Entries Definition
       type: object
@@ -2260,7 +2281,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PatrolResourceDocData'
-        description:
+        statusReason:
           type: string
         modifiedDate:
           allOf:
@@ -2995,6 +3016,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RouteList' 
+    ValidateCheckpointResponse:
+      description: Set of checkpoint validilities response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidateCheckpoint' 
     
     RouteListPaginationResponse:
       description: Set of route entries response
@@ -3209,15 +3236,6 @@ components:
           schema:
             $ref: '#/components/schemas/RiskLicenseAcceptanceData'
    
-    HasPatrolStartedRequest:
-      content:
-        application/json:
-          schema:
-            properties:  
-              routeIds:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Guid'
                   
     UpdatePatrolEventRequest:
       content:
