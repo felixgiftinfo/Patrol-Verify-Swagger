@@ -597,6 +597,31 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'
           
+    
+    put:
+      tags:
+        - Patrol Service
+      summary: Carry out action on patrol event like STARTED
+                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
+                DISABLED and ACTIVATED .
+      description: Carry out action on patrol event like STARTED
+                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
+                DISABLED and ACTIVATED .
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
+     
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'  
+          
     head:
       tags:
         - Patrol Service
@@ -2481,6 +2506,8 @@ components:
         status:
           $ref: '#/components/schemas/PatrolStatus'
         
+        isRiskAssessmentAccepted:
+          type: boolean
         riskAssessmentId:
           type: string
           title: Risk Assessment Id 
@@ -2730,6 +2757,7 @@ components:
         assignedTo:
           type: string
           title: Assign User 
+          description: abc@xyz.com
         status:
           $ref: '#/components/schemas/PatrolStatus'
         descripion:
