@@ -758,31 +758,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
       
-    
-    put:
-      tags:
-        - Patrol Service
-      summary: Carry out action on patrol event like STARTED
-                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED and ACTIVATED .
-      description: Carry out action on patrol event like STARTED
-                ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED and ACTIVATED .
-      requestBody:
-        $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
-     
-      responses:
-        200:
-          $ref: '#/components/responses/PatrolBooleanResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'  
-          
     patch:
       tags:
         - Patrol Service
@@ -2506,6 +2481,8 @@ components:
         status:
           $ref: '#/components/schemas/PatrolStatus'
         
+        isRiskAssessmentMandatory:
+          type: boolean
         isRiskAssessmentAccepted:
           type: boolean
         riskAssessmentId:
