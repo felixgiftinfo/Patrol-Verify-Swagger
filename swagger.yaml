@@ -1115,26 +1115,26 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'      
 
-  /scheduling/list/count:
-    post:
-      tags:
-        - Scheduling Service
-      summary: Retrieves Google Calendar events
-      description:  Retrieves Google Calendar events
-      requestBody:
-        $ref: '#/components/requestBodies/ScheduleServiceEventListRequestCount'
+  # /scheduling/list/count:
+  #   post:
+  #     tags:
+  #       - Scheduling Service
+  #     summary: Retrieves Google Calendar events
+  #     description:  Retrieves Google Calendar events
+  #     requestBody:
+  #       $ref: '#/components/requestBodies/ScheduleServiceEventListRequestCount'
 
-      responses:
-        200:
-          $ref: '#/components/responses/SchedulingServiceEventListResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'            
+  #     responses:
+  #       200:
+  #         $ref: '#/components/responses/SchedulingServiceEventListResponse'
+  #       400:
+  #         $ref: '#/components/responses/ErrorResponse'
+  #       401:
+  #         $ref: '#/components/responses/ErrorResponse'
+  #       403:
+  #         $ref: '#/components/responses/ErrorResponse'
+  #       500:
+  #         $ref: '#/components/responses/ErrorResponse'            
 
      
   
