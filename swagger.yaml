@@ -2609,14 +2609,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PatrolResourceDocData'
-        scheduleDate:
-         allOf:
-            - $ref: '#/components/schemas/DateTime'
-         title: Schedule Date
-        scheduleEndDate:
-         allOf:
-            - $ref: '#/components/schemas/DateTime'
-         title: Schedule End Date
        
         isRepeated:
           type: boolean
@@ -2684,10 +2676,18 @@ components:
               type: boolean
               example: true
               readOnly: true 
+            scheduleDate:
+             allOf:
+                - $ref: '#/components/schemas/DateTime'
+             title: Schedule Date
+            scheduleEndDate:
+             allOf:
+                - $ref: '#/components/schemas/DateTime'
+             title: Schedule End Date
             IsStarted:
               type: boolean
               readOnly: true 
-            IsCompleted:
+            IsFinished:
               type: boolean
               readOnly: true 
             timeFrame:
