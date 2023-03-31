@@ -2349,6 +2349,9 @@ components:
         isRandomPatrol:
           type: boolean
           readOnly: true
+        PatrolType:
+          type: string
+          readOnly: true
         orgId:
           type: integer
           readOnly: true
@@ -2472,6 +2475,13 @@ components:
         assignedTo:
           type: string
           title: Assigned user
+          
+        isRandomPatrol:
+          type: boolean
+          readOnly: true
+        PatrolType:
+          type: string
+          readOnly: true
         startDateAndTime:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -2690,6 +2700,9 @@ components:
             IsFinished:
               type: boolean
               readOnly: true 
+            PatrolType:
+              type: string
+              readOnly: true
             timeFrame:
               allOf:
                 - $ref: '#/components/schemas/Time'
