@@ -1374,14 +1374,29 @@ components:
       enum:
         - READY
         - STARTED
+        - STARTED - EARLY
+        - STARTED - LATE
         - ABANDONED
         - COMPLETED
         - DECLINE
-        - ENDED
         - SUSPENDED
         - RESTARTED
         - DISABLED
         - ACTIVATED
+        - COMPLETED - WITH EVENT REPORTED
+        - COMPLETED - MISSED CHECKPOINTS
+        - COMPLETED - MISSED CHECKPOINTS - WITH EVENT REPORTED
+        - COMPLETED_- LATE
+        - COMPLETED - LATE - WITH EVENT REPORTED
+        - COMPLETED - LATE - MISSED CHECKPOINTS
+        - COMPLETED - LATE - MISSED CHECKPOINTS - WITH EVENT REPORTED
+        - COMPLETED - EARLY
+        - COMPLETED - EARLY - WITH EVENT REPORTED
+        - COMPLETED - EARLY - MISSED CHECKPOINTS
+        - COMPLETED - EARLY - MISSED CHECKPOINTS - WITH EVENT REPORTED
+        - OVERDUE - NOT STARTED
+        - OVERDUE - NOT COMPLETED
+        - OVERDUE - NOT COMPLETED - WITH EVENT REPORTED
         
     PatrolStatusAction:
       type: string
@@ -2331,6 +2346,11 @@ components:
             - $ref: '#/components/schemas/Time'
           title: Time Frame(In Seconds)
           readOnly: true
+        modifiedTimeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Modified Time Frame(In Seconds)
+          readOnly: true
         tolerance:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -2490,6 +2510,16 @@ components:
             - $ref: '#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+          readOnly: true
+        modifiedTimeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Modified Time Frame(In Seconds)
+          readOnly: true
         
         isRiskAssessmentMandatory:
           type: boolean
