@@ -678,7 +678,7 @@ paths:
         $ref: '#/components/requestBodies/PatrolEventSynchronisationPayloadRequest'
       responses:
         201:
-          $ref: '#/components/responses/PatrolEventSynchronisationResponse'
+          $ref: '#/components/responses/PatrolBooleanResponse'
         400:
           $ref: '#/components/responses/ErrorResponse'
         401:
@@ -710,6 +710,7 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse' 
           
+          
    
     parameters:
       - $ref: '#/components/parameters/ScheduleEventId'
@@ -729,8 +730,52 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'  
+  
+  /patrols/schedule-event/{scheduleEventId}/linked-incidents:
+    post:
+      tags:
+        - Patrol Service
+      summary: Link patrol event to set of incidents.
+      description: Link patrol event to set of incidents.
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      requestBody:
+        $ref: '#/components/requestBodies/LinkedIncidentEventRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse' 
+                  
+                  
+  /patrols/linked-incident-events/{searchId}:
+    get:
+      tags:
+        - Patrol Service
+      summary: Retrieves set of patrol linked incidents.
+      description: Retrieves set of patrol linked incidents. you could fetch linked incident events by numerous attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT, INCIDENT, CHECKPOINT, EMAIL,ORG.
           
-              
+      parameters:
+         - $ref: '#/components/parameters/SearchId'
+         - $ref: '#/components/parameters/SearchBy'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolLinkedIncidentEventListResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'  
+  
                   
   /patrols/re-assign-events/{patrolId}:
     parameters:
@@ -753,6 +798,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'
+          
           
   /patrols/{patrolId}:
     parameters:
@@ -1159,6 +1205,21 @@ components:
     #   required: false
     #   schema:
     #     type: string
+    SearchId:
+      name: searchId
+      in: path
+      description: searchId depends on searchBy value.
+      required: true
+      schema:
+        type: string
+    SearchBy:
+      name: searchBy
+      in: query
+      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT", "INCIDENT","CHECKPOINT","EMAIL","ORG"].
+          Based on the selected searchBy value you enter the appropriate searchId.
+      required: true
+      schema:
+        type: string
     EventId:
       name: eventId
       in: path
@@ -2127,6 +2188,16 @@ components:
           $ref: '#/components/schemas/PatrolEntryStruct'
         data:
           $ref: '#/components/schemas/ScheduleEventGetData'
+          
+    PatrolLinkedIncidentEventList:
+      title: Set of Patrol Linked Incident Events Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
+        data:
+          items:
+            $ref: '#/components/schemas/PatrolLinkedIncidentEvent'
 
                     
     PatrolEntryStruct:
@@ -2178,39 +2249,6 @@ components:
       type: array
       items:
           $ref: '#/components/schemas/PatrolSynchronisationEntryData'
-     
-        
-    PatrolEventSynchronisationOutputData:
-    
-      title: Patrol Synchronisation Definition
-      type: object
-      properties:
-        struct:
-          $ref: '#/components/schemas/PatrolEntryStruct'
-        data:
-          title: Patrol Synchronisation Output
-          type: object 
-          properties:
-            numberOfPatrolEventsStarted:
-              type: integer
-            numberOfPatrolEventsSuspended:
-              type: integer
-            numberOfPatrolEventsDeclined:
-              type: integer
-            numberOfPatrolEventsAbandoned:
-              type: integer
-            numberOfPatrolEventsCompleted:
-              type: integer
-            numberOfEventCheckpointsValidated:
-              type: integer
-            numberOfEventCheckpointsSkipped:
-              type: integer
-            numberOfRiskAgreements:
-              type: integer
-            message:
-              type: array
-              items:
-                type: string      
                 
     RiskLicenseAcceptanceSynchronisationData:
       title: Patrol Risk License Acceptance
@@ -2375,6 +2413,11 @@ components:
         orgId:
           type: integer
           readOnly: true
+        linkedIncidentEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedIncidentEvent'
+          readOnly: true
         createdByName:
           type: string
           readOnly: true
@@ -2469,7 +2512,67 @@ components:
             - title: User Id that last modified the record. Default to current use if not supplied
           readOnly: true 
           
-          
+    
+    LinkedIncidentEvent:
+      title: Linked Incident Event
+      type: object
+      properties:  
+        scheduleEventId:
+           type: string
+        IncidentEventId:
+           type: string
+        CheckpointId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            
+            
+    
+    PatrolLinkedIncidentEvent:
+      title: Linked Incident Event
+      type: object
+      properties:  
+        scheduleEventLinkIncidentEventId:
+           type: string
+        scheduleEventId:
+           type: string
+        IncidentEventId:
+           type: string
+        CheckpointId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+        eventId:
+           type: string
+        patrolId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+        routeId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+        orgId:
+          title: Organisation Id
+          type: integer
+          readOnly: true
+        createdDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Create date of entry. Default to now() if not supplied
+          readOnly: true
+        modifiedDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Last modify date of entry. Default to now() if not supplied
+          readOnly: true
+        createdBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id creating record. Default to current use if not supplied
+          readOnly: true
+        modifiedBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id that last modified the record. Default to current use if not supplied
+          readOnly: true 
+           
     PatrolEventData:
       title: Patrol Event
       type: object
@@ -2515,6 +2618,12 @@ components:
             - $ref: '#/components/schemas/Time'
           title: Time Frame(In Seconds)
           readOnly: true
+        linkedIncidentEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedIncidentEvent'
+          readOnly: true
+            
         modifiedTimeFrame:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -2740,7 +2849,12 @@ components:
             tolerance:
               allOf:
                 - $ref: '#/components/schemas/Time'
-              title: Tolerance(In Seconds)
+              title: Tolerance(In Seconds) 
+            linkedIncidentEvents:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedIncidentEvent'
+              readOnly: true
               
             createdByName:
               type: string
@@ -3050,14 +3164,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RouteSynchronisationOutputData'  
-            
-    PatrolEventSynchronisationResponse:
-      description: Synchronisation of offline patrol data response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PatrolEventSynchronisationOutputData' 
-            
+ 
     RouteListResponse:
       description: Set of route entries response
       content:
@@ -3135,28 +3242,35 @@ components:
           schema:
             $ref: '#/components/schemas/ScheduleEvent'
     PatrolScheduleEventListResponse:
-      description: Schedule Action Payload
+      description: Schedule action response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ScheduleEventList'
 
     PatrolCheckpointDatailResponse:
-      description: Patrol entry request
+      description: Patrol entry response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/PatrolCheckpointDatailDataList'
             
     RiskLicenseAcceptanceListResponse:
-      description: Patrol risk license acceptance request
+      description: Patrol risk license acceptance response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RiskLicenseAcceptanceList'
             
+    PatrolLinkedIncidentEventListResponse:
+      description: Patrol linked incident event response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatrolLinkedIncidentEventList'
+            
     SchedulingServiceEventListResponse:
-      description: Schedule Action Payload
+      description: Schedule action response
       content:
         application/json:
           schema:
@@ -3164,7 +3278,7 @@ components:
 
 
     ScheduleServiceCreateEventResponse:
-      description: Schedule Service Event Create Response 
+      description: Schedule service event create response 
       content:
         application/json:
           schema:
@@ -3305,6 +3419,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PatrolPutEntryData'
+            
+    LinkedIncidentEventRequest:
+      description: Patrol linked incident request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LinkedIncidentEvent'
 
     CheckPointbyIdsRequest:
         description: CheckpointByIds
