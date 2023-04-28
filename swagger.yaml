@@ -96,6 +96,20 @@ paths:
           $ref: '#/components/responses/ErrorResponse'        
 
   /checkpoint:
+    
+    head:
+      tags:
+        - Checkpoint Service
+      summary: Checks Whether There is Any data available For Sync 
+      description: Checks Whether There is Any data available For Sync 
+      parameters:
+      - $ref: '#/components/parameters/QuerySiteId'
+      responses:
+        200:
+          description: successful operation
+        404:
+          $ref: '#/components/responses/ErrorResponse'        
+          
     post:
       tags:
         - Checkpoint Service
@@ -156,7 +170,45 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'  
-                
+                    
+  /checkpoint/find-all:
+    post:
+      tags:
+        - Checkpoint Service
+      summary: Retrieves a set of checkpoint entries range On the basis Of orgId passed Through token 
+      description: 
+        Retrieves the  set of Checkpoint entries
+
+      requestBody:
+        description: Enter set of site ids
+        content:
+          application/json:
+            schema:
+              title: Site Ids
+              type: object
+              properties:
+                siteIds:
+                  items:
+                    type: integer
+        
+      parameters:
+      - $ref: "#/components/parameters/Limit"
+      - $ref: "#/components/parameters/Page"  
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+     
+      responses:
+        200:
+          $ref: '#/components/responses/CheckpointListResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'    
+                      
     
   /checkpoint/verification-type:
     get:
@@ -262,47 +314,8 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 
       
-                  
-  /checkpoint/:
-    get:
-      tags:
-        - Checkpoint Service
-      summary: Retrieves a set of Checkpoint entries range On the Basis Of OrgId Passed Through token 
-      description: 
-        Retrieves the  set of Checkpoint entries
-
-      parameters:
-      - $ref: "#/components/parameters/Limit"
-      - $ref: "#/components/parameters/Page"  
-      - $ref: '#/components/parameters/FromDate'
-      - $ref: '#/components/parameters/ToDate'
-     
-      responses:
-        200:
-          $ref: '#/components/responses/CheckpointListResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'    
-                  
-  
-    head:
-      tags:
-        - Checkpoint Service
-      summary: Checks Whether There is Any data available For Sync 
-      description: Checks Whether There is Any data available For Sync 
-      parameters:
-      - $ref: '#/components/parameters/QuerySiteId'
-      responses:
-        200:
-          description: successful operation
-        404:
-          $ref: '#/components/responses/ErrorResponse'        
           
+
   /routes:
     
     post:
