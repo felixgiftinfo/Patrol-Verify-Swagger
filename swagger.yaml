@@ -680,7 +680,30 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'
          
-        
+         
+  /patrols/disabled-route-patrol/{routeId}/remove:
+    delete:
+      tags:
+        - Patrol Service
+      summary: Remove none running patrol and its dependencies via disabled route
+      description: 
+        Remove none running patrol and its dependencies via disabled route
+      parameters:
+      - $ref: "#/components/parameters/RouteId"
+     
+      responses:
+        200:
+          $ref: '#/components/responses/BooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'    
+                      
+          
   /patrols/synchronize-offline-data:       
     post:
       tags:
