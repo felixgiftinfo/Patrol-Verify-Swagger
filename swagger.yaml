@@ -2640,7 +2640,7 @@ components:
         isRandomPatrol:
           type: boolean
           readOnly: true
-        PatrolType:
+        patrolType:
           type: string
           readOnly: true
         startDateAndTime:
@@ -2661,6 +2661,27 @@ components:
           items:
             $ref: '#/components/schemas/LinkedIncidentEvent'
           readOnly: true
+          
+        report:
+          properties:
+            status:
+              allOf:
+              - $ref: '#/components/schemas/PatrolStatus'
+              - title: Patrol status
+            started:
+              allOf:
+                - $ref: '#/components/schemas/DateTime'
+                - title: Patrol started datetime
+            ended:
+              allOf:
+                - $ref: '#/components/schemas/DateTime'
+                - title: Patrol ended datetime
+            duration:
+              type: integer
+              title: Duration in second
+            completedBy:
+              type: string
+              title: Patrol completed by
             
         modifiedTimeFrame:
           allOf:
