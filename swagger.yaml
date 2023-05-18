@@ -616,10 +616,10 @@ paths:
         - Patrol Service
       summary: Carry out action on patrol event like STARTED
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED and ACTIVATED .
+                DISABLED, ACTIVATED, OVERDUE - NOT STARTED,OVERDUE - NOT COMPLETED and OVERDUE - NOT COMPLETED - WITH EVENT REPORTED .
       description: Carry out action on patrol event like STARTED
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED and ACTIVATED .
+                DISABLED, ACTIVATED, OVERDUE - NOT STARTED,OVERDUE - NOT COMPLETED and OVERDUE - NOT COMPLETED - WITH EVENT REPORTED .
       requestBody:
         $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
      
@@ -1507,7 +1507,10 @@ components:
         - SUSPENDED
         - RESTARTED
         - DISABLED
-        - ACTIVATED
+        - ACTIVATED 
+        - OVERDUE - NOT STARTED
+        - OVERDUE - NOT COMPLETED
+        - OVERDUE - NOT COMPLETED - WITH EVENT REPORTED
         
     Error:
       title: Error Response
@@ -1793,6 +1796,12 @@ components:
           allOf:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the entry. Default to current use if not supplied
+          readOnly: true
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
           readOnly: true
    
     
@@ -2113,6 +2122,12 @@ components:
           allOf:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the entry. Default to current use if not supplied
+          readOnly: true
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
           readOnly: true
       
     # Patrol Data  
@@ -2456,9 +2471,6 @@ components:
           items:
             $ref: '#/components/schemas/LinkedIncidentEvent'
           readOnly: true
-        createdByName:
-          type: string
-          readOnly: true
         createdDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -2478,6 +2490,12 @@ components:
           allOf:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the entry. Default to current use if not supplied
+          readOnly: true
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
           readOnly: true
               
     PatrolResourceDocData:
@@ -2549,6 +2567,12 @@ components:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the record. Default to current use if not supplied
           readOnly: true 
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
+          readOnly: true
           
     
     LinkedIncidentEvent:
@@ -2610,6 +2634,12 @@ components:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the record. Default to current use if not supplied
           readOnly: true 
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
+          readOnly: true
            
     PatrolEventData:
       title: Patrol Event
@@ -2790,7 +2820,13 @@ components:
           allOf:
             - $ref: '#/components/schemas/Guid'
             - title: User Id that last modified the record. Default to current use if not supplied
-          readOnly: true      
+          readOnly: true  
+        createdByName:
+          type: string
+          readOnly: true
+        modifiedByName:
+          type: string
+          readOnly: true    
                    
   
     PatrolPutEntryData:
@@ -2915,9 +2951,6 @@ components:
                 $ref: '#/components/schemas/LinkedIncidentEvent'
               readOnly: true
               
-            createdByName:
-              type: string
-              readOnly: true
             createdDate:
               allOf:
                 - $ref: '#/components/schemas/DateTime'
@@ -2937,6 +2970,12 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Guid'
                 - title: User Id that last modified the entry. Default to current use if not supplied
+              readOnly: true
+            createdByName:
+              type: string
+              readOnly: true
+            modifiedByName:
+              type: string
               readOnly: true
               
               
