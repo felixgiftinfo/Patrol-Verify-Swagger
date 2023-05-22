@@ -1627,6 +1627,14 @@ components:
       properties:
         imageId:
           type: string
+        name:
+          type: string
+        latitude:
+          allOf:
+            - $ref: '#/components/schemas/Numeric'
+        longitude:
+          allOf:
+            - $ref: '#/components/schemas/Numeric'
                 
 
     CheckpointDisableData:
