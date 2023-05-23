@@ -1945,6 +1945,18 @@ components:
               type: array
               items:
                 type: string
+            timeFrame:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+              title: Time Frame(In Seconds)
+            tolerance:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+              title: Tolerance(In Seconds)
+            position:
+              type: integer
+              format: int
+
     
     RouteCheckpointData:
       title: Route Entry along with set of Checkpoint
@@ -2752,6 +2764,19 @@ components:
             completedBy:
               type: string
               title: Patrol completed by
+        
+        reassignInfo:
+          properties:
+            reassignBy:
+              type: string
+              title: Patrol reassigned by
+            reassignByName:
+              type: string
+              title: Patrol reassigned by name
+            reassignDate:
+              allOf:
+                - $ref: '#/components/schemas/DateTime'
+                - title: Patrol started datetime
             
         modifiedTimeFrame:
           allOf:
