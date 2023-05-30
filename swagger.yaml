@@ -813,6 +813,29 @@ paths:
           $ref: '#/components/responses/ErrorResponse'  
   
                   
+                  
+  /patrols/patrol-event-histories/{searchId}:
+    get:
+      tags:
+        - Patrol Service
+      summary: Retrieves set of patrol event histories.
+      description: Retrieves set of patrol event histories with searchBy attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT.
+          
+      parameters:
+        - $ref: '#/components/parameters/SearchId'
+        - $ref: '#/components/parameters/HistorySearchBy'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolEventHistoryListResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse' 
+          
   /patrols/re-assign-events/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
@@ -1252,6 +1275,14 @@ components:
       name: searchBy
       in: query
       description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT", "INCIDENT","CHECKPOINT","EMAIL","ORG"].
+          Based on the selected searchBy value you enter the appropriate searchId.
+      required: true
+      schema:
+        type: string
+    HistorySearchBy:
+      name: searchBy
+      in: query
+      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT"].
           Based on the selected searchBy value you enter the appropriate searchId.
       required: true
       schema:
@@ -2150,6 +2181,9 @@ components:
           type: string
           readOnly: true
       
+      
+      
+      
     # Patrol Data  
     PatrolGuid:
       title: Patrol Guid Definition
@@ -2280,6 +2314,16 @@ components:
         data:
           items:
             $ref: '#/components/schemas/PatrolLinkedIncidentEvent'
+            
+    PatrolEventHistoryList:
+      title: Set of Patrol Event Histories Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
+        data:
+          items:
+            $ref: '#/components/schemas/PatrolEventHistory'
 
                     
     PatrolEntryStruct:
@@ -2693,6 +2737,7 @@ components:
           type: string
           readOnly: true
            
+           
     PatrolEventData:
       title: Patrol Event
       type: object
@@ -2892,6 +2937,59 @@ components:
         modifiedByName:
           type: string
           readOnly: true    
+                   
+    
+    PatrolEventHistory:
+      title: Patrol Event History
+      type: object
+       
+      properties:
+        patrolId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+          title: Patrol Id  
+        routeId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+          title: Route Id
+        eventId:
+          type: string
+        scheduleEventId:
+          type: string
+        orgId:
+          type: integer
+          title: Org Id 
+        status:
+          $ref: '#/components/schemas/PatrolStatus'
+        statusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Status date of entry. 
+        previousStatusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Previous Status date of entry. 
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+        tolerance:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Tolerance(In Seconds)
+        description:
+          type: string
+        createdDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Create date of entry. Default to now() if not supplied
+        createdBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id creating record. Default to current use if not supplied
+        createdByName:
+          type: string
+                                  
                    
   
     PatrolPutEntryData:
@@ -3452,7 +3550,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ScheduleServiceEventCreate'        
+            $ref: '#/components/schemas/ScheduleServiceEventCreate' 
+            
+    PatrolEventHistoryListResponse:
+      description: Patrol event histories response 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatrolEventHistoryList'         
             
             
             
