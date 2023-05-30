@@ -819,7 +819,7 @@ paths:
       tags:
         - Patrol Service
       summary: Retrieves set of patrol event histories.
-      description: Retrieves set of patrol event histories with searchBy attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT.
+      description: Retrieves set of patrol event histories with searchBy attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT, ORG.
           
       parameters:
         - $ref: '#/components/parameters/SearchId'
@@ -1282,7 +1282,7 @@ components:
     HistorySearchBy:
       name: searchBy
       in: query
-      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT"].
+      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT", "ORG"].
           Based on the selected searchBy value you enter the appropriate searchId.
       required: true
       schema:
