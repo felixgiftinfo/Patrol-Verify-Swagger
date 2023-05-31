@@ -824,6 +824,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/SearchId'
         - $ref: '#/components/parameters/HistorySearchBy'
+        - $ref: "#/components/parameters/PageStart"
+        - $ref: "#/components/parameters/PageCount"
+        - $ref: '#/components/parameters/FromDate'
+        - $ref: '#/components/parameters/ToDate'
       responses:
         200:
           $ref: '#/components/responses/PatrolEventHistoryListResponse'
