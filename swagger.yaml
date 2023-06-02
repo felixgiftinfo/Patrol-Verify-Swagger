@@ -2225,6 +2225,13 @@ components:
         data:
           items:
             $ref: '#/components/schemas/PatrolEntryData'
+        venue:
+          items:
+             properties:
+              siteId:
+                type: string
+              siteName:
+                type: string
         totalRecordCount: 
           type: number
           
