@@ -1330,7 +1330,7 @@ components:
     ReportType:
       name: reportType
       in: query
-      description: Report Types are ["NOT STARTED","COMPLETED","OVERDUE","SUSPENDED","DISABLED","ABANDONED","NOT FINISHED","CHECKPOINT SKIPPED"].
+      description: Report Types are ["NOT STARTED","COMPLETED","OVERDUE","SUSPENDED","DISABLED","DECLINED","ABANDONED","NOT FINISHED","CHECKPOINT SKIPPED"].
       required: true
       schema:
         type: string
