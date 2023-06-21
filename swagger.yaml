@@ -850,7 +850,7 @@ paths:
           
       parameters:
         - $ref: '#/components/parameters/SearchId'
-        - $ref: '#/components/parameters/HistorySearchBy'
+        - $ref: '#/components/parameters/ReportSearchBy'
         - $ref: "#/components/parameters/PageStart"
         - $ref: "#/components/parameters/PageCount"
         - $ref: '#/components/parameters/FromDate'
@@ -1305,7 +1305,7 @@ components:
     SearchBy:
       name: searchBy
       in: query
-      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT", "INCIDENT","CHECKPOINT","EMAIL","ORG"].
+      description: SearchBy values are ["ORG","ROUTE","PATROL","EVENT", "SCHEDULEEVENT", "INCIDENT","CHECKPOINT","EMAIL"].
           Based on the selected searchBy value you enter the appropriate searchId.
       required: true
       schema:
@@ -1313,7 +1313,15 @@ components:
     HistorySearchBy:
       name: searchBy
       in: query
-      description: SearchBy values are ["PATROL","ROUTE","EVENT", "SCHEDULEEVENT", "ORG"].
+      description: SearchBy values are ["ORG","ROUTE","PATROL","EVENT","SCHEDULEEVENT"].
+          Based on the selected searchBy value you enter the appropriate searchId.
+      required: true
+      schema:
+        type: string
+    ReportSearchBy:
+      name: searchBy
+      in: query
+      description: SearchBy values are ["ORG","ROUTE","PATROL","EVENT","SCHEDULEEVENT","ASSIGNEDTO"].
           Based on the selected searchBy value you enter the appropriate searchId.
       required: true
       schema:
@@ -3058,23 +3066,24 @@ components:
         orgId:
           type: integer
           title: Org Id 
+        isFinished:
+          type: boolean
         statusLabel:
           type: string
           default: "NOT STARTED"
         status:
           $ref: '#/components/schemas/PatrolStatus'
-        isFinish:
-          type: boolean
+        statusReason:
+          type: string
         statusDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
             - title: Status date of entry. 
         firstStatusStartDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+        firstStatusStartedByName:
           type: string 
-        firstStatusStartedBy:
-          type: string 
-        previousStatusDate:
-          type: string
           title: Previous Status date of entry. 
         scheduleDate:
          allOf:
@@ -3084,7 +3093,7 @@ components:
          allOf:
             - $ref: '#/components/schemas/DateTime'
          title: Schedule End Date
-        duration:
+        patrolDuration:
           allOf:
             - $ref: '#/components/schemas/Time'
           title: Patrol Duration(In Seconds)
@@ -3093,6 +3102,8 @@ components:
         patrolType:
           type: string
         eventLocation:
+          type: string
+        eventTimeZone:
           type: string
         timeFrame:
           allOf:
@@ -3114,13 +3125,13 @@ components:
           allOf:
             - $ref: '#/components/schemas/DateTime'
             - title: Create date of entry. Default to now() if not supplied
-        createdByName:
-          type: string
-        lastmodifiedDate:
+        modifiedDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
             - title: Create date of entry. Default to now() if not supplied
-        lastModifiedBy:
+        createdByName:
+          type: string
+        modifiedByName:
           type: string
                                     
                    
