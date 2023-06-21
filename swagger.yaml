@@ -840,6 +840,33 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse' 
           
+             
+  /patrols/reporting/{searchId}:
+    get:
+      tags:
+        - Patrol Service
+      summary: Retrieves set of patrol reports.
+      description: Retrieves set of patrol reports with searchBy attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT, ORG.
+          
+      parameters:
+        - $ref: '#/components/parameters/SearchId'
+        - $ref: '#/components/parameters/HistorySearchBy'
+        - $ref: "#/components/parameters/PageStart"
+        - $ref: "#/components/parameters/PageCount"
+        - $ref: '#/components/parameters/FromDate'
+        - $ref: '#/components/parameters/ToDate'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolReportListResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse' 
+          
   /patrols/re-assign-events/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
@@ -2335,6 +2362,16 @@ components:
         data:
           items:
             $ref: '#/components/schemas/PatrolEventHistory'
+            
+    PatrolPatrolReportList:
+      title: Set of Patrol PatrolReports Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
+        data:
+          items:
+            $ref: '#/components/schemas/PatrolReport'
 
                     
     PatrolEntryStruct:
@@ -2768,6 +2805,10 @@ components:
         eventName:
           type: string
           description: Event Name
+        routeName:
+          type: string
+          title: Route Name 
+          readOnly: true 
         scheduleEventId:
           type: string
           description: Scheduled EventId from google scheduler api (id)
@@ -3000,7 +3041,88 @@ components:
             - title: User Id creating record. Default to current use if not supplied
         createdByName:
           type: string
-                                  
+                                
+    
+    PatrolReport:
+      title: Patrol Report
+      type: object
+       
+      properties:
+        
+        routeName:
+          type: string
+        eventName:
+          type: string
+        assignedTo:
+          type: string
+        orgId:
+          type: integer
+          title: Org Id 
+        statusLabel:
+          type: string
+          default: "NOT STARTED"
+        status:
+          $ref: '#/components/schemas/PatrolStatus'
+        isFinish:
+          type: boolean
+        statusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Status date of entry. 
+        firstStatusStartDate:
+          type: string 
+        firstStatusStartedBy:
+          type: string 
+        previousStatusDate:
+          type: string
+          title: Previous Status date of entry. 
+        scheduleDate:
+         allOf:
+            - $ref: '#/components/schemas/DateTime'
+         title: Schedule Date
+        scheduleEndDate:
+         allOf:
+            - $ref: '#/components/schemas/DateTime'
+         title: Schedule End Date
+        duration:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Patrol Duration(In Seconds)
+        linkedIncidentPresent:
+          type: boolean
+        patrolType:
+          type: string
+        eventLocation:
+          type: string
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+        modifiedTimeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Modified Time Frame(In Seconds) as a result of suspended patrol
+        tolerance:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Tolerance(In Seconds)
+        note:
+          type: string
+        description:
+          type: string
+        createdDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Create date of entry. Default to now() if not supplied
+        createdByName:
+          type: string
+        lastmodifiedDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - title: Create date of entry. Default to now() if not supplied
+        lastModifiedBy:
+          type: string
+                                    
                    
   
     PatrolPutEntryData:
@@ -3063,6 +3185,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Guid'
               title: Route Id 
+              
     PatrolCheckpointDatailData:
       allOf:
         - $ref: '#/components/schemas/RouteCheckpointDatailData'
@@ -3090,6 +3213,10 @@ components:
               title: Organisation Id
               type: integer 
               readOnly: true
+            routeName:
+              type: string
+              title: Route Name 
+              readOnly: true 
             isScheduled:
               type: boolean
               example: true
@@ -3568,7 +3695,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PatrolEventHistoryList'         
+            $ref: '#/components/schemas/PatrolEventHistoryList' 
+            
+    PatrolReportListResponse:
+      description: Patrol reports response 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatrolPatrolReportList'       
             
             
             
