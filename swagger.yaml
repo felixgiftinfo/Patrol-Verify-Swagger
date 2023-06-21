@@ -846,11 +846,12 @@ paths:
       tags:
         - Patrol Service
       summary: Retrieves set of patrol reports.
-      description: Retrieves set of patrol reports with searchBy attributes like PATROL, ROUTE, EVENT, SCHEDULEEVENT, ORG.
+      description: Retrieves set of patrol reports with searchBy attributes like ORG, ROUTE, PATROL, EVENT, SCHEDULEEVENT, ASSIGNEDTO.
           
       parameters:
         - $ref: '#/components/parameters/SearchId'
         - $ref: '#/components/parameters/ReportSearchBy'
+        - $ref: '#/components/parameters/ReportType'
         - $ref: "#/components/parameters/PageStart"
         - $ref: "#/components/parameters/PageCount"
         - $ref: '#/components/parameters/FromDate'
@@ -1323,6 +1324,13 @@ components:
       in: query
       description: SearchBy values are ["ORG","ROUTE","PATROL","EVENT","SCHEDULEEVENT","ASSIGNEDTO"].
           Based on the selected searchBy value you enter the appropriate searchId.
+      required: true
+      schema:
+        type: string
+    ReportType:
+      name: reportType
+      in: query
+      description: Report Types are ["NOT STARTED","COMPLETED","OVERDUE","SUSPENDED","DISABLED","ABANDONED","NOT FINISHED","CHECKPOINT SKIPPED"].
       required: true
       schema:
         type: string
@@ -3068,7 +3076,7 @@ components:
           title: Org Id 
         isFinished:
           type: boolean
-        statusLabel:
+        reportType:
           type: string
           default: "NOT STARTED"
         status:
