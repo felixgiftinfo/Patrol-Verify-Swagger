@@ -3065,6 +3065,18 @@ components:
        
       properties:
         
+        patrolId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+          title: Patrol Id  
+        routeId:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+          title: Route Id
+        eventId:
+          type: string
+        scheduleEventId:
+          type: string
         routeName:
           type: string
         eventName:
@@ -3081,18 +3093,25 @@ components:
           default: "NOT STARTED"
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        StatusDoneByName:
+          type: string 
+          title: User name that carried out such action. 
         statusReason:
           type: string
         statusDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
             - title: Status date of entry. 
-        firstStatusStartDate:
+        statusStartDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
-        firstStatusStartedByName:
+        statusStartDoneBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+          title: User Id that started patrol. 
+        statusStartDoneByName:
           type: string 
-          title: Previous Status date of entry. 
+          title: User name that started patrol. 
         scheduleDate:
          allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -3105,8 +3124,63 @@ components:
           allOf:
             - $ref: '#/components/schemas/Time'
           title: Patrol Duration(In Seconds)
-        linkedIncidentPresent:
-          type: boolean
+        linkedIncidentCount:
+          type: number
+        linkedIncidents:
+          type: object
+          properties:
+            incidentEventId:
+              type: string
+            checkpointId:
+              type: string
+            checkpointName:
+              type: string
+          
+        checkpoints:
+          type: object
+          properties:
+            checkpointId:
+              type: string
+            checkpointName:
+              type: string
+          
+        skippedCheckpoints:
+          type: object
+          properties:
+            checkpointId:
+              type: string
+            checkpointName:
+              type: string
+            skippedTime:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+        checkInCheckpoints:
+          type: object
+          properties:
+            checkpointId:
+              type: string
+            checkpointName:
+              type: string
+            checkInTime:
+              allOf:
+                - $ref: '#/components/schemas/Time'
+            carriedTasks:
+              type: object 
+              properties:
+                task:
+                  type: string
+                isCarriedOut:
+                  type: boolean
+                description:
+                  type: string
+              
+              
+        checkpointCount:
+          type: number
+        skippedCheckpointCount:
+          type: number
+        checkInCheckpointCount:
+          type: number
         patrolType:
           type: string
         eventLocation:
