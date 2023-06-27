@@ -2386,8 +2386,23 @@ components:
         struct:
           $ref: '#/components/schemas/PatrolEntryStruct'
         data:
-          items:
-            $ref: '#/components/schemas/PatrolReport'
+          type: object
+          properties:
+            report:
+              items:
+                $ref: '#/components/schemas/PatrolReport'
+            patrolCount:
+              type: number
+            routeCount:
+              type: number
+            reOccurringEventCount:
+              type: number
+            checkInCheckpointCount:
+              type: number
+            skippedCheckpointCount:
+              type: number
+            totalRecordCount:
+              type: number
 
                     
     PatrolEntryStruct:
