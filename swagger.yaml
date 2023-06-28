@@ -2567,6 +2567,10 @@ components:
           type: string
           title: Assigned user
           readOnly: true
+        assignedToName :
+          type: string
+          title: AssignedTo Name  
+          readOnly: true 
         
         riskAssessmentId:
             type: string
@@ -2846,6 +2850,10 @@ components:
         assignedTo:
           type: string
           title: Assigned user
+        assignedToName :
+          type: string
+          title: AssignedTo Name  
+          readOnly: true 
           
         isRandomPatrol:
           type: boolean
@@ -3264,6 +3272,10 @@ components:
         assignedTo:
           type: string
           title: Assigned user
+        assignedToName :
+          type: string
+          title: AssignedTo Name  
+          readOnly: true 
         isRouteTimeFrame:
           type: boolean
         isRandomPatrol:
