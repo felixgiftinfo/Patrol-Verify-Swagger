@@ -2400,6 +2400,8 @@ components:
               type: number
             skippedCheckpointCount:
               type: number
+            siteCount:
+              type: number
             totalRecordCount:
               type: number
 
@@ -3158,6 +3160,8 @@ components:
             checkpointName:
               type: string
           
+        checkpointCount:
+          type: number
         checkpoints:
           type: object
           properties:
@@ -3165,7 +3169,13 @@ components:
               type: string
             checkpointName:
               type: string
+            siteId:
+              type: string
+            siteName:
+              type: string
           
+        skippedCheckpointCount:
+          type: number
         skippedCheckpoints:
           type: object
           properties:
@@ -3175,7 +3185,9 @@ components:
               type: string
             skippedTime:
               allOf:
-                - $ref: '#/components/schemas/Time'
+                - $ref: '#/components/schemas/Time'   
+        checkInCheckpointCount:
+          type: number
         checkInCheckpoints:
           type: object
           properties:
@@ -3196,13 +3208,16 @@ components:
                 description:
                   type: string
               
-              
-        checkpointCount:
+        siteCount:
           type: number
-        skippedCheckpointCount:
-          type: number
-        checkInCheckpointCount:
-          type: number
+        sites:
+          type: object
+          properties:
+            siteId:
+              type: string
+            siteName:
+              type: string
+           
         patrolType:
           type: string
         eventLocation:
