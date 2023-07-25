@@ -2870,6 +2870,11 @@ components:
             - $ref: '#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        estimatedDuration:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Estimated Duration(In Seconds)
+          readOnly: true
         timeFrame:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -3291,7 +3296,8 @@ components:
           title: AssignedTo Name  
           readOnly: true 
         isRouteTimeFrame:
-          type: boolean
+          type: boolean 
+          readOnly: true 
         isRandomPatrol:
           type: boolean
         additionalInfo:
