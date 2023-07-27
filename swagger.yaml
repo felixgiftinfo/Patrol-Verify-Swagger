@@ -2905,7 +2905,29 @@ components:
           items:
             $ref: '#/components/schemas/LinkedIncidentEvent'
           readOnly: true
+        linkIncidentCount:
+          type: integer
+          title: Number of link incident
+          readOnly: true
           
+        checkpointStat:
+          properties:
+            completedCheckpointCount:
+              type: integer
+              title: Number of checkpoints completed
+            totalCheckpointCount:
+              type: integer
+              title: Total number of checkpoints
+          
+        checkpointActionStat:
+          properties:
+            completedActionCount:
+              type: integer
+              title: Number of checkpoint's action completed
+            totalActionCount:
+              type: integer
+              title: Total number of checkpoint's action
+        
         report:
           properties:
             status:
@@ -2923,6 +2945,10 @@ components:
             duration:
               type: integer
               title: Duration in second
+            actualInterval:
+              allOf:
+                - $ref: '#/components/schemas/DateTime'
+                - title: This is the time taken between the last scheduled patrol of the same name using the ACTUAL end date and time and the ACTUAL start date and time of the patrol shown. e.g. Last patrol was finished 24/07/23 7:03am, and the next was started at  24/07/23 10:08am, the interval would be 3:05 (hh:mm
             completedBy:
               type: string
               title: Patrol completed by
