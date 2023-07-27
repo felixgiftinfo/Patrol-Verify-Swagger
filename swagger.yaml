@@ -2882,6 +2882,11 @@ components:
         patrolType:
           type: string
           readOnly: true
+        timeFrame:
+          allOf:
+            - $ref: '#/components/schemas/Time'
+          title: Time Frame(In Seconds)
+          readOnly: true
         startDateAndTime:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -2895,11 +2900,11 @@ components:
             - $ref: '#/components/schemas/Time'
           title: Estimated Duration(In Seconds)
           readOnly: true
-        timeFrame:
-          allOf:
-            - $ref: '#/components/schemas/Time'
-          title: Time Frame(In Seconds)
-          readOnly: true
+        actualInterval:
+          type: integer
+          title: This is the time taken between the last scheduled patrol of the same name using the ACTUAL end date and time and the ACTUAL start date and time of the patrol shown. e.g. Last patrol was finished '24/07/23 7:03am', and the next was started at  '24/07/23 10:08am', the interval would be '3:05' (hh:mm).Note, actualInterval will be in second.
+          readOnly: true 
+          
         linkedIncidentEvents:
           type: array
           items:
@@ -2909,7 +2914,6 @@ components:
           type: integer
           title: Number of link incident
           readOnly: true
-          
         checkpointStat:
           properties:
             completedCheckpointCount:
@@ -2945,9 +2949,6 @@ components:
             duration:
               type: integer
               title: Duration in second
-            actualInterval:
-              type: integer
-              title: This is the time taken between the last scheduled patrol of the same name using the ACTUAL end date and time and the ACTUAL start date and time of the patrol shown. e.g. Last patrol was finished '24/07/23 7:03am', and the next was started at  '24/07/23 10:08am', the interval would be '3:05' (hh:mm).Note, actualInterval will be in second. 
             completedBy:
               type: string
               title: Patrol completed by
