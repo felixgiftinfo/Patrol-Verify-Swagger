@@ -868,6 +868,26 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse' 
           
+  /patrols/disable-patrol-events/{patrolId}:
+    parameters:
+      - $ref: '#/components/parameters/PatrolId'
+    put:
+      tags:
+        - Patrol Service
+      summary: To disable all events in patrol
+      description: To disable all events in patrol
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
+          
   /patrols/re-assign-events/{patrolId}:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
