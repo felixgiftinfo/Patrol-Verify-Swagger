@@ -2946,9 +2946,8 @@ components:
               type: integer
               title: Duration in second
             actualInterval:
-              allOf:
-                - $ref: '#/components/schemas/DateTime'
-                - title: This is the time taken between the last scheduled patrol of the same name using the ACTUAL end date and time and the ACTUAL start date and time of the patrol shown. e.g. Last patrol was finished 24/07/23 7:03am, and the next was started at  24/07/23 10:08am, the interval would be 3:05 (hh:mm
+              type: integer
+              title: This is the time taken between the last scheduled patrol of the same name using the ACTUAL end date and time and the ACTUAL start date and time of the patrol shown. e.g. Last patrol was finished '24/07/23 7:03am', and the next was started at  '24/07/23 10:08am', the interval would be '3:05' (hh:mm).Note, actualInterval will be in second. 
             completedBy:
               type: string
               title: Patrol completed by
