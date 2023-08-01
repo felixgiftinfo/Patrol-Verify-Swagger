@@ -3383,6 +3383,14 @@ components:
               type: boolean
             isVerifiedOrSkipped:
               type: boolean
+            uploadedImages:
+              type: object
+              properties:
+                imageId:
+                  type: string
+                  title: Image url
+                note:
+                  type: string
               
     PatrolEntryData:
        allOf:
