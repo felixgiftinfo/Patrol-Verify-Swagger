@@ -2441,15 +2441,22 @@ components:
     CheckInTaskData:
       title: Checkin Task Entry
       type: object
-      required:
-        - name
-        - orgId
       properties:
         task:
           type: string
         isCarriedOut:
           type: boolean
         description:
+          type: string
+    
+    UploadedImageData:
+      title: Checkin Upload Image
+      type: object
+      properties:
+        imageId:
+          type: string
+          title: Image url
+        note:
           type: string
           
     ScheduleEventData:
@@ -3049,6 +3056,10 @@ components:
         carriedTasks:
           items:
             $ref: '#/components/schemas/CheckInTaskData'
+        uploadedImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/UploadedImageData'
         description:
           type: string
         isSkipped:
@@ -3384,13 +3395,9 @@ components:
             isVerifiedOrSkipped:
               type: boolean
             uploadedImages:
-              type: object
-              properties:
-                imageId:
-                  type: string
-                  title: Image url
-                note:
-                  type: string
+              type: array
+              items:
+                $ref: '#/components/schemas/UploadedImageData'
               
     PatrolEntryData:
        allOf:
