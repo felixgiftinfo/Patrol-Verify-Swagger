@@ -1065,7 +1065,7 @@ paths:
       - $ref: "#/components/parameters/PageCount"
       responses:
         200:
-          $ref: '#/components/responses/PatrolEventListResponse'
+          $ref: '#/components/responses/PatrolSystemEventListResponse'
         400:
           $ref: '#/components/responses/ErrorResponse'
         401:
@@ -2317,6 +2317,18 @@ components:
             $ref: '#/components/schemas/PatrolEventData'
         totalRecordCount: 
           type: number
+          
+    PatrolSystemEventList:
+      title: Patrol Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
+        data:
+          items:
+            $ref: '#/components/schemas/PatrolSystemEventData'
+        totalRecordCount: 
+          type: number
             
     RiskLicenseAcceptanceList:
       title: Risk License Acceptance
@@ -2921,23 +2933,6 @@ components:
           type: integer
           title: Number of link incident
           readOnly: true
-        checkpointStat:
-          properties:
-            completedCheckpointCount:
-              type: integer
-              title: Number of checkpoints completed
-            totalCheckpointCount:
-              type: integer
-              title: Total number of checkpoints
-          
-        checkpointActionStat:
-          properties:
-            completedActionCount:
-              type: integer
-              title: Number of checkpoint's action completed
-            totalActionCount:
-              type: integer
-              title: Total number of checkpoint's action
         
         report:
           properties:
@@ -2994,18 +2989,56 @@ components:
           items:
             $ref: '#/components/schemas/PatrolResourceDocData'
        
-        # displayName:
-        #   type: string
-        #   description: Patrol User Name
-        # email:
-        #   type: string
-        #   description: Patrol User Email
         timeZone:
           type: string
         location:
           type: string
         description:
           type: string
+      
+      
+        
+           
+    PatrolSystemEventData:
+      title: Patrol System Event
+      
+      allOf:
+        - $ref: '#/components/schemas/PatrolEventData'
+      type: object
+      
+      properties:
+        checkpointStat:
+          properties:
+            completedCheckpointCount:
+              type: integer
+              title: Number of checkpoints completed
+            totalCheckpointCount:
+              type: integer
+              title: Total number of checkpoints
+          
+        checkpointActionStat:
+          properties:
+            completedActionCount:
+              type: integer
+              title: Number of checkpoint's action completed
+            totalActionCount:
+              type: integer
+              title: Total number of checkpoint's action
+              
+        checkpointSites:
+          type: object
+          properties:
+            checkpointId:
+              type: string
+            checkpointName:
+              type: string
+            siteId:
+              type: string
+            siteName:
+              type: string
+        
+            
+      
       
     PatrolCheckInData:
       title: CheckIn Payload
@@ -3823,6 +3856,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PatrolEventList'
+    PatrolSystemEventListResponse:
+      description: Set of patrol event entries response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatrolSystemEventList'
     PatrolCheckInListResponse:
       description: CheckIn entry response
       content:
