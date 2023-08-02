@@ -3026,16 +3026,17 @@ components:
               title: Total number of checkpoint's action
               
         checkpointSites:
-          type: object
-          properties:
-            checkpointId:
-              type: string
-            checkpointName:
-              type: string
-            siteId:
-              type: string
-            siteName:
-              type: string
+          type: array
+          items:
+            properties:
+              checkpointId:
+                type: string
+              checkpointName:
+                type: string
+              siteId:
+                type: string
+              siteName:
+                type: string
         
             
       
