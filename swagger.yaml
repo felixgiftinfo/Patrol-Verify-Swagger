@@ -665,6 +665,7 @@ paths:
 
       parameters:
       - $ref: '#/components/parameters/QuerySiteIds'
+      - $ref: '#/components/parameters/RegionId'
       - $ref: "#/components/parameters/PageStart"
       - $ref: "#/components/parameters/PageCount"
       - $ref: '#/components/parameters/FromDate'
@@ -1060,6 +1061,7 @@ paths:
         Note that it is possible for the final 'page' of results to contain zero entriesand 'PageCount' max is 10.
       parameters:
       - $ref: '#/components/parameters/QuerySiteIds'
+      - $ref: '#/components/parameters/RegionId'
       - $ref: '#/components/parameters/EventFromDate'
       - $ref: '#/components/parameters/EventToDate'
       - $ref: "#/components/parameters/PageStart"
@@ -1423,6 +1425,13 @@ components:
       name: siteId
       in: query
       description: Site Id
+      required: false
+      schema:
+        type: string
+    RegionId:
+      name: regionId
+      in: query
+      description: Region Id
       required: false
       schema:
         type: string
