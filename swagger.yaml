@@ -3484,6 +3484,9 @@ components:
             IsStarted:
               type: boolean
               readOnly: true 
+            IsDisabled :
+              type: boolean
+              readOnly: true 
             IsFinished:
               type: boolean
               readOnly: true 
