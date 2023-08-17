@@ -953,48 +953,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     
                   
-  /patrols/user/{userIdentity}:
-    get:
-      tags:
-        - Patrol Service
-      summary:  Retrieves Assigned Patrols
-      description: 
-        Retrieves the Assinged Patrol entries
-      parameters:
-      - $ref: '#/components/parameters/UserIdentity'
-      responses:
-        200:
-          $ref: '#/components/responses/PatrolListResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'
-          
-  
-  /patrols/route/{routeId}:
-    get:
-      tags:
-        - Patrol Service
-      summary: Retrieves patrol entries related to route
-      description: Retrieves patrol entries related to route
-      parameters:
-      - $ref: '#/components/parameters/RouteId'
-      responses:
-        200:
-          $ref: '#/components/responses/PatrolListResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'
-          
   
   /patrols/events:
   
@@ -1092,26 +1050,6 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/PatrolCheckpointDatailResponse'
-        400:
-          $ref: '#/components/responses/ErrorResponse'
-        401:
-          $ref: '#/components/responses/ErrorResponse'
-        403:
-          $ref: '#/components/responses/ErrorResponse'
-        500:
-          $ref: '#/components/responses/ErrorResponse'
-            
-  /patrols/schedule-event/{scheduleEventId}:          
-    get:
-      tags:
-        - Patrol Service
-      summary: Retrieves saved schedule event 
-      description: Retrieves saved schedule event 
-      parameters:
-      - $ref: '#/components/parameters/ScheduleEventId'
-      responses:
-        200:
-          $ref: '#/components/responses/PatrolScheduleEventResponse'
         400:
           $ref: '#/components/responses/ErrorResponse'
         401:
@@ -3449,6 +3387,11 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/UploadedImageData'
+            actions:
+              items:
+                $ref: '#/components/schemas/CheckInTaskData'
+            verifiedReason:
+              type: string
               
     PatrolEntryData:
        allOf:
