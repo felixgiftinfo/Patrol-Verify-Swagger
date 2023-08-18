@@ -3371,6 +3371,11 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Guid'
               title: Route Id 
+            configuration:
+              allOf:
+                - $ref: '#/components/schemas/ScheduleServiceEventData'
+              title: Schedule Configuration
+            
               
     PatrolCheckpointDatailData:
       allOf:
