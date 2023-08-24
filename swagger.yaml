@@ -2583,6 +2583,8 @@ components:
           readOnly: true
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        previousStatus:
+          $ref: '#/components/schemas/PatrolStatus'
         timeFrame:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -2868,6 +2870,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/DateTime'
         status:
+          $ref: '#/components/schemas/PatrolStatus'
+        previousStatus:
           $ref: '#/components/schemas/PatrolStatus'
         estimatedDuration:
           allOf:
