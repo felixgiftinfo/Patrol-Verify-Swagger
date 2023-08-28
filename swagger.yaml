@@ -870,14 +870,15 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse' 
           
-  /patrols/disable-patrol-events/{patrolId}:
+  /patrols/patrol-events/{patrolId}/{disabled}/:
     parameters:
       - $ref: '#/components/parameters/PatrolId'
+      - $ref: '#/components/parameters/Disabled'
     put:
       tags:
         - Patrol Service
-      summary: To disable all events in patrol
-      description: To disable all events in patrol
+      summary: To disable and enable all events in patrol
+      description: To disable and enable all events in patrol
       responses:
         200:
           $ref: '#/components/responses/PatrolBooleanResponse'
@@ -1309,6 +1310,13 @@ components:
       schema:
         type: string
         
+    Disabled:
+      name: disabled
+      in: path
+      description: Disable or enable item
+      required: true
+      schema:
+        type: boolean
     UserIdentity:
       name: userIdentity
       in: path
