@@ -1021,6 +1021,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuerySiteIds'
       - $ref: '#/components/parameters/RegionId'
+      - $ref: '#/components/parameters/QueryScheduleEventId'
       - $ref: '#/components/parameters/EventFromDate'
       - $ref: '#/components/parameters/EventToDate'
       - $ref: "#/components/parameters/PageStart"
@@ -1371,6 +1372,13 @@ components:
       name: siteId
       in: query
       description: Site Id
+      required: false
+      schema:
+        type: string
+    QueryScheduleEventId:
+      name: scheduleEventId
+      in: query
+      description: ScheduleEvent Id
       required: false
       schema:
         type: string
