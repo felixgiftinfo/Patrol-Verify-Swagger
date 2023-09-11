@@ -616,10 +616,10 @@ paths:
         - Patrol Service
       summary: Carry out action on patrol event like STARTED
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED, ACTIVATED, OVERDUE - NOT STARTED,OVERDUE - NOT COMPLETED and OVERDUE - NOT COMPLETED - WITH EVENT REPORTED .
+                DISABLED, ACTIVATED.
       description: Carry out action on patrol event like STARTED
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
-                DISABLED, ACTIVATED, OVERDUE - NOT STARTED,OVERDUE - NOT COMPLETED and OVERDUE - NOT COMPLETED - WITH EVENT REPORTED .
+                DISABLED, ACTIVATED.
       requestBody:
         $ref: '#/components/requestBodies/UpdatePatrolEventRequest'
      
@@ -1062,6 +1062,26 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 
  
+  /patrols/schedule-event/{scheduleEventId}:
+    get:
+      tags:
+        - Patrol Service
+      summary: Retrieves saved schedule event related to scheduleEvent 
+      description: Retrieves saved schedule even related to scheduleEvent  
+      parameters:
+      - $ref: '#/components/parameters/ScheduleEventId'
+      responses:
+        200:
+          $ref: '#/components/responses/PatrolScheduleEventResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse' 
+          
   /patrols/schedule-events/{eventId}:
     get:
       tags:
@@ -1192,7 +1212,8 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'
-
+          
+ 
   /scheduling/list:
     post:
       tags:
@@ -1212,7 +1233,45 @@ paths:
         403:
           $ref: '#/components/responses/ErrorResponse'
         500:
-          $ref: '#/components/responses/ErrorResponse'      
+          $ref: '#/components/responses/ErrorResponse'           
+          
+  /calendars:
+    post:
+      tags:
+        - Scheduling Service
+      summary: Create schedule calendar for client 
+      description: Create schedule calendar for client
+      requestBody:
+        $ref: '#/components/requestBodies/CalandarPayloadRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/SchedulingServiceEventBooleanResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
+          
+    get:
+      tags:
+        - Scheduling Service
+      summary: Get set of client's schedule calendar 
+      description: Get set of client's schedule calendar 
+      responses:
+        200:
+          $ref: '#/components/responses/CalandarResponseDataResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
+    
 
   # /scheduling/list/count:
   #   post:
@@ -1537,31 +1596,38 @@ components:
       description: Patrol Event Status
       example: 'READY'
       enum:
-        - READY
-        - STARTED
-        - STARTED - EARLY
-        - STARTED - LATE
-        - ABANDONED
-        - COMPLETED
-        - DECLINE
-        - SUSPENDED
-        - RESTARTED
-        - DISABLED
-        - ACTIVATED
-        - COMPLETED - WITH EVENT REPORTED
-        - COMPLETED - MISSED CHECKPOINTS
-        - COMPLETED - MISSED CHECKPOINTS - WITH EVENT REPORTED
-        - COMPLETED_- LATE
-        - COMPLETED - LATE - WITH EVENT REPORTED
-        - COMPLETED - LATE - MISSED CHECKPOINTS
-        - COMPLETED - LATE - MISSED CHECKPOINTS - WITH EVENT REPORTED
-        - COMPLETED - EARLY
-        - COMPLETED - EARLY - WITH EVENT REPORTED
-        - COMPLETED - EARLY - MISSED CHECKPOINTS
-        - COMPLETED - EARLY - MISSED CHECKPOINTS - WITH EVENT REPORTED
-        - OVERDUE - NOT STARTED
-        - OVERDUE - NOT COMPLETED
-        - OVERDUE - NOT COMPLETED - WITH EVENT REPORTED
+         - PENDING
+         - STARTED
+         - STARTED - EARLY
+         - STARTED - LATE
+         - ABANDONED
+         - DECLINED
+         - SUSPENDED
+         - RESTARTED
+         - REASSIGNED
+         - DISABLED
+         - ACTIVATED
+         - COMPLETED
+         - COMPLETED - WITH EVENT REPORTED
+         - COMPLETED - INCOMPLETE ACTIONS
+         - COMPLETED - MISSED CHECKPOINTS
+         - COMPLETED - MISSED CHECKPOINTS - WITH EVENT REPORTED
+         - COMPLETED - LATE
+         - COMPLETED - LATE - WITH EVENT REPORTED
+         - COMPLETED - LATE - MISSED CHECKPOINTS
+         - COMPLETED - LATE - MISSED CHECKPOINTS - WITH EVENT REPORTED
+         - COMPLETED - EARLY
+         - COMPLETED - EARLY - WITH EVENT REPORTED
+         - COMPLETED - EARLY - MISSED CHECKPOINTS
+         - COMPLETED - EARLY - MISSED CHECKPOINTS - WITH EVENT REPORTED
+         - IN PROGRESS
+         - IN PROGRESS - WITH EVENT REPORTED
+         - IN PROGRESS - MISSED CHECKPOINTS - WITH EVENT REPORTED
+         - IN PROGRESS - INCOMPLETE ACTIONS
+         - IN PROGRESS - MISSED CHECKPOINTS
+         - IN PROGRESS - OVERDUE NOT COMPLETED
+         - IN PROGRESS - OVERDUE NOT COMPLETED - WITH EVENT REPORTED
+         - OVERDUE - NOT STARTED
         
     PatrolStatusAction:
       type: string
@@ -1576,9 +1642,6 @@ components:
         - RESTARTED
         - DISABLED
         - ACTIVATED 
-        - OVERDUE - NOT STARTED
-        - OVERDUE - NOT COMPLETED
-        - OVERDUE - NOT COMPLETED - WITH EVENT REPORTED
         
     Error:
       title: Error Response
@@ -2581,8 +2644,30 @@ components:
         assignedToName :
           type: string
           title: AssignedTo Name  
-          readOnly: true 
+          readOnly: true
+        previousAssignedTo:
+          type: string
+          title: Previous assigned user
+          readOnly: true
+        previousAssignedToName :
+          type: string
+          title: Previous assignedTo Name  
+          readOnly: true  
+        previousAssignedToDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          readOnly: true
         
+        statusStartDoneBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id
+          readOnly: true
+        statusStartDoneByName :
+          type: string
+          title: Status Start Done by Name  
+          readOnly: true  
+          
         riskAssessmentId:
             type: string
             title: Risk Assessment Id 
@@ -2601,6 +2686,11 @@ components:
           $ref: '#/components/schemas/PatrolStatus'
         previousStatus:
           $ref: '#/components/schemas/PatrolStatus'
+        previousStatusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          readOnly: true
+          
         timeFrame:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -2619,10 +2709,15 @@ components:
         totalCheckpointCount:
           type: integer
           readOnly: true
-        processedCheckpointCount:
+        checkInCheckpointCount:
           type: integer
           readOnly: true
-       
+        checkpointActionCount:
+          type: integer
+          readOnly: true
+        inCompletedCheckpointActionCount:
+          type: integer
+          readOnly: true
         isRouteTimeFrame:
           type: boolean
           readOnly: true
@@ -2867,6 +2962,16 @@ components:
           type: string
           title: AssignedTo Name  
           readOnly: true 
+       
+        statusStartDoneBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id
+          readOnly: true
+        statusStartDoneByName :
+          type: string
+          title: Status Start Done by Name  
+          readOnly: true 
           
         isRandomPatrol:
           type: boolean
@@ -2889,6 +2994,10 @@ components:
           $ref: '#/components/schemas/PatrolStatus'
         previousStatus:
           $ref: '#/components/schemas/PatrolStatus'
+        previousStatusDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          readOnly: true
         estimatedDuration:
           allOf:
             - $ref: '#/components/schemas/Time'
@@ -3469,6 +3578,12 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Time'
               title: Tolerance(In Seconds) 
+            totalEventCount:
+              type: number
+              readOnly: true
+            processedEventCount:
+              type: number
+              readOnly: true
             linkedIncidentEvents:
               type: array
               items:
@@ -3557,7 +3672,50 @@ components:
          items:
           $ref: '#/components/schemas/ScheduleServiceEventBaseData'
           
+    CalandarPayload:
+      type: object
+      required:
+        - summary
+        - orgId
+      properties:
+        summary:
+          type: string  
+        orgId:
+          description: Client orgId
+          type: number  
           
+    CalandarResponseData:
+      title: Set of Events
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/ScheduleServiceEventStruct'
+        data:
+          type: array
+          items:
+            properties:
+              summary:
+                type: string  
+              orgId:
+                description: Client orgId
+                type: number       
+              createdDate:
+               allOf:
+                - $ref: '#/components/schemas/DateTime'
+                - title: Create date of entry. Default to now() if not supplied
+              modifiedDate:
+                allOf:
+                  - $ref: '#/components/schemas/DateTime'
+                  - title: Last modify date of entry. Default to now() if not supplied
+              createdBy:
+                allOf:
+                  - $ref: '#/components/schemas/Guid'
+                  - title: User Id creating entry. Default to current use if not supplied
+              modifiedBy:
+                allOf:
+                  - $ref: '#/components/schemas/Guid'
+                  - title: User Id that last modified the entry. Default to current use if not supplied
+              
     ScheduleServiceEventCreateResponseData:
       title: Set of Events
       type: object
@@ -3911,6 +4069,12 @@ components:
           schema:
             $ref: '#/components/schemas/ScheduleEventListResponse'          
 
+    CalandarResponseDataResponse:
+      description: Calendar response 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CalandarResponseData' 
 
     ScheduleServiceCreateEventResponse:
       description: Schedule service event create response 
@@ -3963,6 +4127,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ScheduleServiceEventData' 
+            
+    CalandarPayloadRequest:
+      description: Create Client  Payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CalandarPayload' 
             
     ScheduleServicePatchEventRequest:
       description: Schedule Service Update/Patch Event
