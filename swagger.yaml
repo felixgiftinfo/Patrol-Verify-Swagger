@@ -614,10 +614,10 @@ paths:
     put:
       tags:
         - Patrol Service
-      summary: Carry out action on patrol event like STARTED
+      summary: Carry out action on patrol event like STARTED,REASSIGNED,
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
                 DISABLED, ACTIVATED.
-      description: Carry out action on patrol event like STARTED
+      description: Carry out action on patrol event like STARTED,REASSIGNED,
                 ABANDONED,  COMPLETED, DECLINED, SUSPENDED, RESTARTED,
                 DISABLED, ACTIVATED.
       requestBody:
@@ -1642,6 +1642,7 @@ components:
         - RESTARTED
         - DISABLED
         - ACTIVATED 
+        - REASSIGNED
         
     Error:
       title: Error Response
