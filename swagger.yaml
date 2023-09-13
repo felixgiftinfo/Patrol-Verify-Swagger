@@ -891,9 +891,7 @@ paths:
         500:
           $ref: '#/components/responses/ErrorResponse'
           
-  /patrols/re-assign-events/{patrolId}:
-    parameters:
-      - $ref: '#/components/parameters/PatrolId'
+  /patrols/re-assign-events:
     put:
       tags:
         - Patrol Service
@@ -3630,8 +3628,6 @@ components:
           type: string
           title: Assign User 
           description: abc@xyz.com
-        status:
-          $ref: '#/components/schemas/PatrolStatus'
         descripion:
           type: string        
               
