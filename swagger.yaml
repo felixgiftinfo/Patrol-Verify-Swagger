@@ -2962,15 +2962,6 @@ components:
           title: AssignedTo Name  
           readOnly: true 
        
-        statusStartDoneBy:
-          allOf:
-            - $ref: '#/components/schemas/Guid'
-            - title: User Id
-          readOnly: true
-        statusStartDoneByName :
-          type: string
-          title: Status Start Done by Name  
-          readOnly: true 
           
         isRandomPatrol:
           type: boolean
@@ -2991,12 +2982,30 @@ components:
             - $ref: '#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/PatrolStatus'
+        statusSDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          readOnly: true
         previousStatus:
           $ref: '#/components/schemas/PatrolStatus'
         previousStatusDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
           readOnly: true
+          
+        statusStartDate:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          readOnly: true
+        statusStartDoneBy:
+          allOf:
+            - $ref: '#/components/schemas/Guid'
+            - title: User Id
+          readOnly: true
+        statusStartDoneByName :
+          type: string
+          title: Status Start Done by Name  
+          readOnly: true 
         estimatedDuration:
           allOf:
             - $ref: '#/components/schemas/Time'
