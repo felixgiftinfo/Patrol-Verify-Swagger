@@ -1170,6 +1170,25 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         500:
           $ref: '#/components/responses/ErrorResponse'
+          
+  
+  /patrols/event-status:
+    get:
+      tags:
+        - Patrol Service
+      summary: Retrieve set of event status
+      description: Retrieve set of event status
+      responses:
+        200:
+          $ref: '#/components/responses/EventStatusListResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          $ref: '#/components/responses/ErrorResponse'
+        403:
+          $ref: '#/components/responses/ErrorResponse'
+        500:
+          $ref: '#/components/responses/ErrorResponse'
 
   /scheduling:
     post:
@@ -1678,8 +1697,8 @@ components:
           readOnly: true
         name:
           type: string
-        title:
-          type: string
+        code:
+          type: number
     
     CheckpointList:
       title: Set of Checkpoint Definition
@@ -2362,6 +2381,16 @@ components:
             $ref: '#/components/schemas/PatrolSystemEventData'
         totalRecordCount: 
           type: number
+          
+    EventStatusList:
+      title: Event Status Definition
+      type: object
+      properties:
+        struct:
+          $ref: '#/components/schemas/PatrolEntryStruct'
+        data:
+          items:
+            $ref: '#/components/schemas/EventStatusTable'
             
     RiskLicenseAcceptanceList:
       title: Risk License Acceptance
@@ -2850,7 +2879,19 @@ components:
           allOf:
             - $ref: '#/components/schemas/Guid'
             
-            
+    EventStatusTable:
+      title: Event Status
+      type: object
+      properties:
+        id:
+          type: integer
+          title: Route Id
+          readOnly: true
+        code:
+          type: number 
+        name:
+          allOf:
+          - $ref: '#/components/schemas/PatrolStatus'
     
     ScheduleEventPutActionResult:
       title: Linked Incident Event
@@ -2982,7 +3023,7 @@ components:
             - $ref: '#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/PatrolStatus'
-        statusDate:
+        statusSDate:
           allOf:
             - $ref: '#/components/schemas/DateTime'
           readOnly: true
@@ -4081,6 +4122,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CalandarResponseData' 
+            
+    EventStatusListResponse:
+      description: Event Status response 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EventStatusList' 
 
     ScheduleServiceCreateEventResponse:
       description: Schedule service event create response 
