@@ -2873,9 +2873,10 @@ components:
       properties:  
         scheduleEventId:
            type: string
-        IncidentEventId:
+           readOnly: true
+        incidentEventId:
            type: string
-        CheckpointId:
+        checkpointId:
           allOf:
             - $ref: '#/components/schemas/Guid'
             
